@@ -1,0 +1,1 @@
+# Book-of-Destiny-Your-Safe-Diary
