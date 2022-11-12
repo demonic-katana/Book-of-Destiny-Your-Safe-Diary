@@ -51,12 +51,11 @@ class OwnWindow(QMainWindow):
         self.show_()
 
     def show_(self):
-        cur = self.con.cursor()
         self.listWidget.clear()
         cur = self.con.cursor()
         for i in [i[0] for i in cur.execute(f"""Select name from {self.folder[-1]}""").fetchall()]:
             item = QListWidgetItem()
-            cur.execute(f"""Select file from {self.folder[-1]} where name = '{i}'""").fetchone()
+            cur.execute(f"""Select record from {self.folder[-1]} where name = '{i}'""").fetchone()
             item.setText(i)
             self.listWidget.addItem(item)
         self.listWidget.show()
