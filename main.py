@@ -190,7 +190,7 @@ def excepthook(cls, exception, traceback):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     name_window = 'hello'
-    background_image = r'E:\Pictures\Фоновые изображения рабочего стола\911045.png'
+    background_image = r'interface\911045.png'
     sys.excepthook = excepthook
     while name_window != '':
         try:
