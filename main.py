@@ -121,6 +121,16 @@ class WindowSelect(QWidget):
     def getData(self):
         return self.name_window, self.database
 
+    def resizeEvent(self, event):
+        try:
+            palette = QPalette()
+            img = QImage(background_image)
+            scaled = img.scaled(self.size(), Qt.KeepAspectRatioByExpanding, transformMode=Qt.SmoothTransformation)
+            palette.setBrush(QPalette.Window, QBrush(scaled))
+            self.setPalette(palette)
+        except Exception:
+            pass
+
 
 class WindowCreate(QWidget):
     def __init__(self):
@@ -128,7 +138,16 @@ class WindowCreate(QWidget):
         self.name_window = ''
         uic.loadUi('interface/createBook.ui', self)
         self.setWindowTitle("Book of Destiny: Создать")
+        self.needPassword_2.clicked.connect(self._needPassword)
+        self.cancel_2.clicked.connect(self._leave)
+        self._needPassword()
+        self.database = None
 
+    def _needPassword(self):
+        if self.needPassword_2.isChecked():
+            [i.setEnabled(True) for i in [self.password_2, self.question_2, self.answer_2]]
+        else:
+            [i.setEnabled(False) for i in [self.password_2, self.question_2, self.answer_2]]
 
     def _cancel(self):
         self.name_window = 'hello'
@@ -145,6 +164,16 @@ class WindowCreate(QWidget):
     def getData(self):
         return self.name_window, self.database
 
+    def resizeEvent(self, event):
+        try:
+            palette = QPalette()
+            img = QImage(background_image)
+            scaled = img.scaled(self.size(), Qt.KeepAspectRatioByExpanding, transformMode=Qt.SmoothTransformation)
+            palette.setBrush(QPalette.Window, QBrush(scaled))
+            self.setPalette(palette)
+        except Exception:
+            pass
+
 
 class WindowSetting(QDialog):
     def __init__(self):
@@ -152,6 +181,7 @@ class WindowSetting(QDialog):
         super().__init__()
         uic.loadUi('interface/diary_settings.ui', self)
         self.setWindowTitle("Book of Destiny: Настройки")
+        self.cancel.clicked.connect(self._leave)
         # self.b_w_theme.clicked.connect(self._create)
 
     def _sort(self):
@@ -160,6 +190,10 @@ class WindowSetting(QDialog):
             ("ID", "Название", "Дата создания"), 0, False)
         if ok_pressed:
             print(argument)
+
+    def _leave(self):
+        self.name_window = 'hello'
+        self.close()
 
     def _background_image(self):
         global background_image
@@ -190,7 +224,7 @@ def excepthook(cls, exception, traceback):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     name_window = 'hello'
-    background_image = r'interface\911045.png'
+    background_image = r'E:\Pictures\Фоновые изображения рабочего стола\911045.png'
     sys.excepthook = excepthook
     while name_window != '':
         try:
