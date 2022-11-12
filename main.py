@@ -3,7 +3,8 @@ import sqlite3
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPalette, QImage, QBrush
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QInputDialog, QWidget, QDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QInputDialog, QWidget, QDialog, QListWidget, \
+    QListWidgetItem
 from PyQt5 import uic
 
 
@@ -11,13 +12,18 @@ class OwnWindow(QMainWindow):
     def __init__(self, db):
         self.db = db
         super().__init__()
+        self.listWidget = QListWidget()
+        self.folder = ['main']
         self.name_window = ''
         uic.loadUi('interface/diary.ui', self)
         self.setWindowTitle("Book of Destiny")
         # настройка компонентов:
+        # База данных
+        self.con = sqlite3.connect(db)
         # настройка кнопок
         self.leave.clicked.connect(self._leave)
         self.settings.clicked.connect(self._settings)
+        self.show_()
 
     def _settings(self):
         self.settings = WindowSetting()
@@ -39,6 +45,21 @@ class OwnWindow(QMainWindow):
             self.setPalette(palette)
         except Exception:
             pass
+
+    def create_(self):
+        # creating
+        self.show_()
+
+    def show_(self):
+        cur = self.con.cursor()
+        self.listWidget.clear()
+        cur = self.con.cursor()
+        for i in [i[0] for i in cur.execute(f"""Select name from {self.folder[-1]}""").fetchall()]:
+            item = QListWidgetItem()
+            cur.execute(f"""Select file from {self.folder[-1]} where name = '{i}'""").fetchone()
+            item.setText(i)
+            self.listWidget.addItem(item)
+        self.listWidget.show()
 
 
 class WindowGreeting(QMainWindow):
@@ -75,7 +96,7 @@ class WindowGreeting(QMainWindow):
             pass
 
 
-class WindowSelect(QWidget):
+class WindowSelect(QMainWindow):
     def __init__(self):
         super().__init__()
         self.name_window = ''
@@ -89,8 +110,8 @@ class WindowSelect(QWidget):
 
     def _filedialog(self):
         self.Put.setText(QFileDialog.getOpenFileName(self, 'Выбрать книгу',
-                                                           '',
-                                                           'Data Base file (*.db);;Все файлы (*)')[0])
+                                                     '',
+                                                     'Data Base file (*.db);;Все файлы (*)')[0])
 
     def _select(self):
         database = self.Put.text()
@@ -139,6 +160,7 @@ class WindowCreate(QWidget):
         uic.loadUi('interface/createBook.ui', self)
         self.setWindowTitle("Book of Destiny: Создать")
         self.needPassword_2.clicked.connect(self._needPassword)
+        self.createButton_2.clicked.connect(self.create_db)
         self.cancel_2.clicked.connect(self._leave)
         self._needPassword()
         self.database = None
@@ -163,6 +185,25 @@ class WindowCreate(QWidget):
 
     def getData(self):
         return self.name_window, self.database
+
+    def create_db(self):
+        name = self.name_2.text()
+        if len(name) > 3 and name.split('.')[-1] == 'db' and '.' in name:
+            try:
+                f = open(name, mode='r', encoding='utf8')
+                f.close()
+            except FileNotFoundError:
+                sqlite_connection = sqlite3.connect(name)
+                cur = sqlite_connection.cursor()
+                cur.execute(f"""Create table main (
+                id INTEGER PRIMARY KEY NOT NULL, 
+                name TEXT UNIQUE NOT NULL,
+                record BLOB)""")
+                sqlite_connection.commit()
+                sqlite_connection.close()
+                self.database = name
+                self.name_window = 'diary'
+                self.close()
 
     def resizeEvent(self, event):
         try:
@@ -224,7 +265,7 @@ def excepthook(cls, exception, traceback):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     name_window = 'hello'
-    background_image = r'E:\Pictures\Фоновые изображения рабочего стола\911045.png'
+    background_image = r'interface\911045.png'
     sys.excepthook = excepthook
     while name_window != '':
         try:
@@ -240,6 +281,8 @@ if __name__ == '__main__':
             s = app.exec()
             data = window.getData()
             if name_window == 'selectBook':
+                db = data[1]
+            elif name_window == 'createBook':
                 db = data[1]
             name_window = data[0]
         except Exception as es:
