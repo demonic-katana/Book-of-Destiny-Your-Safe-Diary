@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>694</width>
-    <height>445</height>
+    <width>679</width>
+    <height>537</height>
    </rect>
   </property>
   <property name="font">
@@ -56,13 +56,79 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
+      <widget class="QWidget" name="recordWidget">
+       <attribute name="title">
+        <string>Все записи</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QListWidget" name="listWidget"/>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QPushButton" name="sort_b_1">
+            <property name="text">
+             <string>Отсортировать</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="add_in_f">
+            <property name="text">
+             <string>Добавить в папку</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_1">
+            <item>
+             <widget class="QPushButton" name="open_b_1">
+              <property name="text">
+               <string>Открыть</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="del_b_1">
+              <property name="text">
+               <string>Удалить</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="add_b_1">
+              <property name="text">
+               <string>Новая запись</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="sectionWidget">
        <attribute name="title">
         <string>Папки</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QTableWidget" name="tableWidget"/>
+         <widget class="QListWidget" name="listWidget_1"/>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -96,13 +162,6 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="change_b_2">
-              <property name="text">
-               <string>Изменить</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QPushButton" name="del_b_2">
               <property name="text">
                <string>Удалить</string>
@@ -122,25 +181,32 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="recordWidget">
+      <widget class="QWidget" name="sectionWidget_open">
        <attribute name="title">
-        <string>Все записи</string>
+        <string>Записи в папке</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QTableWidget" name="tableWidget_1"/>
+         <widget class="QLabel" name="label_f">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Папка не выбрана&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <widget class="QListWidget" name="listWidget_folder"/>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
-           <widget class="QPushButton" name="sort_b_1">
+           <widget class="QPushButton" name="sort_b_3">
             <property name="text">
              <string>Отсортировать</string>
             </property>
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer">
+           <spacer name="horizontalSpacer_4">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -153,32 +219,18 @@
            </spacer>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_1">
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
-             <widget class="QPushButton" name="open_b_1">
+             <widget class="QPushButton" name="open_b_3">
               <property name="text">
                <string>Открыть</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="change_b_1">
+             <widget class="QPushButton" name="del_b_3">
               <property name="text">
-               <string>Изменить</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="del_b_1">
-              <property name="text">
-               <string>Удалить</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="add_b_1">
-              <property name="text">
-               <string>Новая запись</string>
+               <string>Удалить из папки</string>
               </property>
              </widget>
             </item>
@@ -188,6 +240,13 @@
         </item>
        </layout>
       </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string/>
+      </property>
      </widget>
     </item>
    </layout>
