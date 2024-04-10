@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>512</width>
-    <height>214</height>
+    <height>217</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -36,8 +36,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>211</width>
-     <height>121</height>
+     <width>251</width>
+     <height>141</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -45,6 +45,13 @@
      <widget class="QPushButton" name="custom_theme">
       <property name="text">
        <string>Загрузить фоновое изображение</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="del_custom_theme">
+      <property name="text">
+       <string>Удалить фон</string>
       </property>
      </widget>
     </item>
@@ -67,34 +74,8 @@
     </rect>
    </property>
    <property name="text">
-    <string>v0.1</string>
+    <string>v1.0</string>
    </property>
-  </widget>
-  <widget class="QWidget" name="widget_2" native="true">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>160</y>
-     <width>241</width>
-     <height>42</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QPushButton" name="ok">
-      <property name="text">
-       <string>Применить</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="cancel">
-      <property name="text">
-       <string>Отмена</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
   </widget>
  </widget>
  <resources/>
